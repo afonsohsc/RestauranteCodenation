@@ -19,7 +19,7 @@ namespace RestauranteCodenation.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("RestauranteCodenation.Domain.Agenda", b =>
+            modelBuilder.Entity("RestauranteCodenation.Domain.Modelo.Agenda", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,13 +37,20 @@ namespace RestauranteCodenation.Data.Migrations
                     b.ToTable("Agenda");
                 });
 
-            modelBuilder.Entity("RestauranteCodenation.Domain.AgendaCardapio", b =>
+            modelBuilder.Entity("RestauranteCodenation.Domain.Modelo.AgendaCardapio", b =>
                 {
                     b.Property<int>("IdAgenda")
                         .HasColumnType("int");
 
                     b.Property<int>("IdCardapio")
                         .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.HasKey("IdAgenda", "IdCardapio");
 
@@ -52,7 +59,7 @@ namespace RestauranteCodenation.Data.Migrations
                     b.ToTable("AgendaCardapio");
                 });
 
-            modelBuilder.Entity("RestauranteCodenation.Domain.Cardapio", b =>
+            modelBuilder.Entity("RestauranteCodenation.Domain.Modelo.Cardapio", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,7 +78,7 @@ namespace RestauranteCodenation.Data.Migrations
                     b.ToTable("Cardapio");
                 });
 
-            modelBuilder.Entity("RestauranteCodenation.Domain.Ingrediente", b =>
+            modelBuilder.Entity("RestauranteCodenation.Domain.Modelo.Ingrediente", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,7 +100,7 @@ namespace RestauranteCodenation.Data.Migrations
                     b.ToTable("Ingrediente");
                 });
 
-            modelBuilder.Entity("RestauranteCodenation.Domain.Prato", b =>
+            modelBuilder.Entity("RestauranteCodenation.Domain.Modelo.Prato", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,13 +133,20 @@ namespace RestauranteCodenation.Data.Migrations
                     b.ToTable("Prato");
                 });
 
-            modelBuilder.Entity("RestauranteCodenation.Domain.PratosIngredientes", b =>
+            modelBuilder.Entity("RestauranteCodenation.Domain.Modelo.PratosIngredientes", b =>
                 {
                     b.Property<int>("IdIngrediente")
                         .HasColumnType("int");
 
                     b.Property<int>("IdPrato")
                         .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.HasKey("IdIngrediente", "IdPrato");
 
@@ -141,7 +155,7 @@ namespace RestauranteCodenation.Data.Migrations
                     b.ToTable("PratosIngredientes");
                 });
 
-            modelBuilder.Entity("RestauranteCodenation.Domain.TipoPrato", b =>
+            modelBuilder.Entity("RestauranteCodenation.Domain.Modelo.TipoPrato", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,43 +171,43 @@ namespace RestauranteCodenation.Data.Migrations
                     b.ToTable("TipoPrato");
                 });
 
-            modelBuilder.Entity("RestauranteCodenation.Domain.AgendaCardapio", b =>
+            modelBuilder.Entity("RestauranteCodenation.Domain.Modelo.AgendaCardapio", b =>
                 {
-                    b.HasOne("RestauranteCodenation.Domain.Agenda", "Agenda")
+                    b.HasOne("RestauranteCodenation.Domain.Modelo.Agenda", "Agenda")
                         .WithMany("AgendaCardapio")
                         .HasForeignKey("IdAgenda")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RestauranteCodenation.Domain.Cardapio", "Cardapio")
+                    b.HasOne("RestauranteCodenation.Domain.Modelo.Cardapio", "Cardapio")
                         .WithMany("AgendaCardapio")
                         .HasForeignKey("IdCardapio")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RestauranteCodenation.Domain.Prato", b =>
+            modelBuilder.Entity("RestauranteCodenation.Domain.Modelo.Prato", b =>
                 {
-                    b.HasOne("RestauranteCodenation.Domain.Cardapio", null)
+                    b.HasOne("RestauranteCodenation.Domain.Modelo.Cardapio", null)
                         .WithMany("Prato")
                         .HasForeignKey("CardapioId");
 
-                    b.HasOne("RestauranteCodenation.Domain.TipoPrato", "TipoPrato")
+                    b.HasOne("RestauranteCodenation.Domain.Modelo.TipoPrato", "TipoPrato")
                         .WithMany("Pratos")
                         .HasForeignKey("IdTipoPrato")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RestauranteCodenation.Domain.PratosIngredientes", b =>
+            modelBuilder.Entity("RestauranteCodenation.Domain.Modelo.PratosIngredientes", b =>
                 {
-                    b.HasOne("RestauranteCodenation.Domain.Ingrediente", "Ingrediente")
+                    b.HasOne("RestauranteCodenation.Domain.Modelo.Ingrediente", "Ingrediente")
                         .WithMany("PratosIngredientes")
                         .HasForeignKey("IdIngrediente")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RestauranteCodenation.Domain.Prato", "Prato")
+                    b.HasOne("RestauranteCodenation.Domain.Modelo.Prato", "Prato")
                         .WithMany("PratosIngredientes")
                         .HasForeignKey("IdPrato")
                         .OnDelete(DeleteBehavior.Cascade)

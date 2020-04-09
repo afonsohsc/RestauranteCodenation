@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestauranteCodenation.Data.Map;
-using RestauranteCodenation.Domain;
+using RestauranteCodenation.Domain.Modelo;
 using System;
 
 namespace RestauranteCodenation.Data
@@ -17,7 +17,7 @@ namespace RestauranteCodenation.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-A7KECJI\SQLEXPRESS;Database=Codenation;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-A7KECJI\SQLEXPRESS;Database=RestauranteCodenation;Trusted_Connection=True;");
             base.OnConfiguring(optionsBuilder); 
         }
 

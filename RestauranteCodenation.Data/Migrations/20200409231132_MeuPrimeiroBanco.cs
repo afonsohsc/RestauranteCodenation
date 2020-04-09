@@ -42,7 +42,7 @@ namespace RestauranteCodenation.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Descricao = table.Column<string>(type: "varchar(50)", nullable: true),
+                    Descricao = table.Column<string>(type: "varchar(500)", nullable: true),
                     Validade = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -68,7 +68,9 @@ namespace RestauranteCodenation.Data.Migrations
                 columns: table => new
                 {
                     IdCardapio = table.Column<int>(nullable: false),
-                    IdAgenda = table.Column<int>(nullable: false)
+                    IdAgenda = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -121,7 +123,9 @@ namespace RestauranteCodenation.Data.Migrations
                 columns: table => new
                 {
                     IdPrato = table.Column<int>(nullable: false),
-                    IdIngrediente = table.Column<int>(nullable: false)
+                    IdIngrediente = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {

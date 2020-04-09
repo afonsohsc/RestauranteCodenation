@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RestauranteCodenation.Domain;
+using RestauranteCodenation.Domain.Modelo;
 
 namespace RestauranteCodenation.Data.Map
 {
