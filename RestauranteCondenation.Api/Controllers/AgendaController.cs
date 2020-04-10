@@ -28,7 +28,7 @@ namespace RestauranteCodenation.Api.Controllers
         }
 
         // GET: api/Agenda/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Agenda Get(int id)
         {
             return _repo.SelecionanrPorId(id);
