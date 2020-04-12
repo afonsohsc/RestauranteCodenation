@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestauranteCodenation.Data.Repositorio;
 using RestauranteCodenation.Domain.Modelo;
+using RestauranteCodenation.Domain.Repositorio;
 
 namespace RestauranteCodenation.Api.Controllers
 {
@@ -13,17 +14,17 @@ namespace RestauranteCodenation.Api.Controllers
     [ApiController]
     public class PratoController : ControllerBase
     {
-        public readonly PratoRepositorio _repo;
-        public PratoController()
+        public readonly IPratoRepositorio _repo;
+        public PratoController(IPratoRepositorio repo)
         {
-            _repo = new PratoRepositorio();
+            _repo = repo;
         }
 
         // GET: api/Prato
         [HttpGet]
         public IEnumerable<Prato> Get()
         {
-            return _repo.SelecionarTodos();
+            return _repo.SelecionarCompleto();
         }
 
         // GET: api/Prato/5

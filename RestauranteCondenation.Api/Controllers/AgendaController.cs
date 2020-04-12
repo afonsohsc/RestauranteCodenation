@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestauranteCodenation.Data.Repositorio;
 using RestauranteCodenation.Domain.Modelo;
+using RestauranteCodenation.Domain.Repositorio;
 
 namespace RestauranteCodenation.Api.Controllers
 {
@@ -13,11 +14,11 @@ namespace RestauranteCodenation.Api.Controllers
     [ApiController]
     public class AgendaController : ControllerBase
     {
-        private readonly AgendaRepositorio _repo;
+        private readonly IAgendaRepositorio _repo;
 
-        public AgendaController()
+        public AgendaController(IAgendaRepositorio repo)
         {
-            _repo = new AgendaRepositorio();
+            _repo = repo;
         }
 
         // GET: api/Agenda

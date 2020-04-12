@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestauranteCodenation.Data.Repositorio;
 using RestauranteCodenation.Domain.Modelo;
+using RestauranteCodenation.Domain.Repositorio;
 
 namespace RestauranteCodenation.Api.Controllers
 {
@@ -13,17 +14,17 @@ namespace RestauranteCodenation.Api.Controllers
     [ApiController]
     public class AgendaCardapioController : ControllerBase
     {
-        private readonly AgendaCardapioRepositorio _repo;
-        public AgendaCardapioController()
+        private readonly IAgendaCardapioRepositorio _repo;
+        public AgendaCardapioController(IAgendaCardapioRepositorio repo)
         {
-            _repo = new AgendaCardapioRepositorio();
+            _repo = repo;
         }
 
         // GET: api/AgendaCardapio
         [HttpGet]
         public IEnumerable<AgendaCardapio> Get()
         {
-            return _repo.SelecionarTodos();
+            return _repo.SelecionarCompleto();
         }
 
         // GET: api/AgendaCardapio/5
@@ -51,7 +52,7 @@ namespace RestauranteCodenation.Api.Controllers
 
         // DELETE: api/AgendaCardapio/5
         [HttpDelete("{id}")]
-        public IList<AgendaCardapio> Delete(int id)
+        public IEnumerable<AgendaCardapio> Delete(int id)
         {
             _repo.Excluir(id);
             return _repo.SelecionarTodos();

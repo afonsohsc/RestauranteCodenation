@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace RestauranteCodenation.Data.Repositorio
 {
-    public class RepositorioBase<T> where T : class, IEntity
+    public class RepositorioBase<T> : IRepositorioBase<T> where T : class, IEntity
     {
         protected readonly Contexto _contexto;
         public RepositorioBase()
@@ -12,7 +12,7 @@ namespace RestauranteCodenation.Data.Repositorio
             _contexto = new Contexto();
         }
 
-        public List<T> SelecionarTodos()
+        public IEnumerable<T> SelecionarTodos()
         {
             return _contexto.Set<T>().ToList();
         }
@@ -40,6 +40,11 @@ namespace RestauranteCodenation.Data.Repositorio
             var entity = SelecionanrPorId(id);
             _contexto.Set<T>().Remove(entity);
             _contexto.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            _contexto.Dispose();
         }
     }
 }

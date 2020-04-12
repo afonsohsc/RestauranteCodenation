@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestauranteCodenation.Data.Repositorio;
 using RestauranteCodenation.Domain.Modelo;
+using RestauranteCodenation.Domain.Repositorio;
 
 namespace RestauranteCodenation.Api.Controllers
 {
@@ -13,10 +14,10 @@ namespace RestauranteCodenation.Api.Controllers
     [ApiController]
     public class CardapioController : ControllerBase
     {
-        private readonly CardapioRepositorio _repo;
-        public CardapioController()
+        private readonly ICardapioRepositorio _repo;
+        public CardapioController(ICardapioRepositorio repo)
         {
-            _repo = new CardapioRepositorio();
+            _repo = repo;
         }
 
         // GET: api/Cardapio
