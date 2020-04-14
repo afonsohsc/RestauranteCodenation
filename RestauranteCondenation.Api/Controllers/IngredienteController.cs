@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using RestauranteCodenation.Data.Repositorio;
-using RestauranteCodenation.Domain.Modelo;
-using RestauranteCodenation.Domain.Repositorio;
+using RestauranteCodenation.Application.Interface;
+using RestauranteCodenation.Application.ViewModel;
 
 namespace RestauranteCodenation.Api.Controllers
 {
@@ -14,48 +9,48 @@ namespace RestauranteCodenation.Api.Controllers
     [ApiController]
     public class IngredienteController : ControllerBase
     {
-        private readonly IIngredienteRepositorio _repo;
-        public IngredienteController(IIngredienteRepositorio repo)
+        private readonly IIngredienteAplicacao _app;
+        public IngredienteController(IIngredienteAplicacao app)
         {
-            _repo = repo;
+            _app = app;
         }
 
         // GET: api/Ingrediente
         [HttpGet]
-        public IEnumerable<Ingrediente> Get()
+        public IEnumerable<IngredienteViewModel> Get()
         {
-            return _repo.SelecionarTodos();
+            return _app.SelecionarTodos();
         }
 
         // GET: api/Ingrediente/5
         [HttpGet("{id}")]
-        public Ingrediente Get(int id)
+        public IngredienteViewModel Get(int id)
         {
-            return _repo.SelecionanrPorId(id);
+            return _app.SelecionanrPorId(id);
         }
 
         // POST: api/Ingrediente
         [HttpPost]
-        public Ingrediente Post([FromBody] Ingrediente ingrediente)
+        public IngredienteViewModel Post([FromBody] IngredienteViewModel ingrediente)
         {
-            _repo.Incluir(ingrediente);
+            _app.Incluir(ingrediente);
             return ingrediente;
         }
 
         // PUT: api/Ingrediente/5
         [HttpPut]
-        public Ingrediente Put([FromBody] Ingrediente ingrediente)
+        public IngredienteViewModel Put([FromBody] IngredienteViewModel ingrediente)
         {
-            _repo.Alterar(ingrediente);
+            _app.Alterar(ingrediente);
             return ingrediente;
         }
 
         // DELETE: api/Ingrediente/5
         [HttpDelete("{id}")]
-        public IEnumerable<Ingrediente> Delete(int id)
+        public IEnumerable<IngredienteViewModel> Delete(int id)
         {
-            _repo.Excluir(id);
-            return _repo.SelecionarTodos();
+            _app.Excluir(id);
+            return _app.SelecionarTodos();
         }
     }
 }

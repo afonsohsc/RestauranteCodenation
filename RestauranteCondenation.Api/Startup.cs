@@ -12,6 +12,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using RestauranteCodenation.Domain.Repositorio;
 using RestauranteCodenation.Data.Repositorio;
+using AutoMapper;
+using RestauranteCodenation.Application.Mapper;
+using RestauranteCodenation.Application.Interface;
+using RestauranteCodenation.Application.App;
+using Microsoft.OpenApi.Models;
 
 namespace RestauranteCodenation.Api
 {
@@ -39,6 +44,17 @@ namespace RestauranteCodenation.Api
             services.AddScoped<IPratoRepositorio, PratoRepositorio>();
             services.AddScoped<IPratosIngredientesRepositorio, PratosIngredientesRepositorio>();
             services.AddScoped<ITipoPratoRepositorio, TipoPratoRepositorio>();
+
+            services.AddScoped<IAgendaAplicacao, AgendaAplicacao>();
+            services.AddScoped<IAgendaCardapioAplicacao, AgendaCardapioAplicacao>();
+            services.AddScoped<ICardapioAplicacao, CardapioAplicacao>();
+            services.AddScoped<IIngredienteAplicacao, IngredienteAplicacao>();
+            services.AddScoped<IPratoAplicacao, PratoAplicacao>();
+            services.AddScoped<IPratosIngredientesAplicacao, PratosIngredientesAplicacao>();
+            services.AddScoped<ITipoPratoAplicacao, TipoPratoAplicacao>();
+
+            services.AddAutoMapper(typeof(AutoMapperConfig));
+            services.AddSwaggerGen(x => x.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "Restaurante da Codenation", Version = "v1" }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +64,12 @@ namespace RestauranteCodenation.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(x =>
+            {
+                x.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Api da Thamy");
+            });
 
             app.UseRouting();
 

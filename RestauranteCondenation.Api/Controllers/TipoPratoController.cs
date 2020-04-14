@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using RestauranteCodenation.Data.Repositorio;
-using RestauranteCodenation.Domain.Modelo;
-using RestauranteCodenation.Domain.Repositorio;
+using RestauranteCodenation.Application.Interface;
+using RestauranteCodenation.Application.ViewModel;
 
 namespace RestauranteCodenation.Api.Controllers
 {
@@ -14,48 +9,48 @@ namespace RestauranteCodenation.Api.Controllers
     [ApiController]
     public class TipoPratoController : ControllerBase
     {
-        private readonly ITipoPratoRepositorio _repo;
-        public TipoPratoController(ITipoPratoRepositorio repo)
+        private readonly ITipoPratoAplicacao _app;
+        public TipoPratoController(ITipoPratoAplicacao app)
         {
-            _repo = repo;
+            _app = app;
         }
 
         // GET: api/TipoPrato
         [HttpGet]
-        public IEnumerable<TipoPrato> Get()
+        public IEnumerable<TipoPratoViewModel> Get()
         {
-            return _repo.SelecionarTodos();
+            return _app.SelecionarTodos();
         }
 
         // GET: api/TipoPrato/5
         [HttpGet("{id}")]
-        public TipoPrato Get(int id)
+        public TipoPratoViewModel Get(int id)
         {
-            return _repo.SelecionanrPorId(id);
+            return _app.SelecionanrPorId(id);
         }
 
         // POST: api/TipoPrato
         [HttpPost]
-        public TipoPrato Post([FromBody] TipoPrato tipoPrato)
+        public TipoPratoViewModel Post([FromBody] TipoPratoViewModel tipoPrato)
         {
-            _repo.Incluir(tipoPrato);
+            _app.Incluir(tipoPrato);
             return tipoPrato;
         }
 
         // PUT: api/TipoPrato/5
         [HttpPut]
-        public TipoPrato Put([FromBody] TipoPrato tipoPrato)
+        public TipoPratoViewModel Put([FromBody] TipoPratoViewModel tipoPrato)
         {
-            _repo.Alterar(tipoPrato);
+            _app.Alterar(tipoPrato);
             return tipoPrato;
         }
 
         // DELETE: api/TipoPrato/5
         [HttpDelete("{id}")]
-        public IEnumerable<TipoPrato> Delete(int id)
+        public IEnumerable<TipoPratoViewModel> Delete(int id)
         {
-            _repo.Excluir(id);
-            return _repo.SelecionarTodos();
+            _app.Excluir(id);
+            return _app.SelecionarTodos();
         }
     }
 }

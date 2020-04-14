@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using RestauranteCodenation.Data.Repositorio;
-using RestauranteCodenation.Domain.Modelo;
-using RestauranteCodenation.Domain.Repositorio;
+using RestauranteCodenation.Application.Interface;
+using RestauranteCodenation.Application.ViewModel;
 
 namespace RestauranteCodenation.Api.Controllers
 {
@@ -14,49 +9,49 @@ namespace RestauranteCodenation.Api.Controllers
     [ApiController]
     public class AgendaController : ControllerBase
     {
-        private readonly IAgendaRepositorio _repo;
+        private readonly IAgendaAplicacao _app;
 
-        public AgendaController(IAgendaRepositorio repo)
+        public AgendaController(IAgendaAplicacao app)
         {
-            _repo = repo;
+            _app = app;
         }
 
         // GET: api/Agenda
         [HttpGet]
-        public IEnumerable<Agenda> Get()
+        public IEnumerable<AgendaViewModel> Get()
         {
-            return _repo.SelecionarTodos();
+            return _app.SelecionarTodos();
         }
 
         // GET: api/Agenda/5
         [HttpGet("{id}")]
-        public Agenda Get(int id)
+        public AgendaViewModel Get(int id)
         {
-            return _repo.SelecionanrPorId(id);
+            return _app.SelecionanrPorId(id);
         }
 
         // POST: api/Agenda
         [HttpPost]
-        public Agenda Post([FromBody] Agenda agenda)
+        public AgendaViewModel Post([FromBody] AgendaViewModel agenda)
         {
-            _repo.Incluir(agenda);
+            _app.Incluir(agenda);
             return agenda;
         }
 
         // PUT: api/Agenda/5
         [HttpPut]
-        public Agenda Put([FromBody] Agenda agenda)
+        public AgendaViewModel Put([FromBody] AgendaViewModel agenda)
         {
-            _repo.Alterar(agenda);
+            _app.Alterar(agenda);
             return agenda;
         }
 
         // DELETE: api/Agenda/5
         [HttpDelete("{id}")]
-        public IEnumerable<Agenda> Delete(int id)
+        public IEnumerable<AgendaViewModel> Delete(int id)
         {
-            _repo.Excluir(id);
-            return _repo.SelecionarTodos();
+            _app.Excluir(id);
+            return _app.SelecionarTodos();
         }
     }
 }

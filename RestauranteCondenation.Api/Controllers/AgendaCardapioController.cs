@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using RestauranteCodenation.Data.Repositorio;
-using RestauranteCodenation.Domain.Modelo;
-using RestauranteCodenation.Domain.Repositorio;
+using RestauranteCodenation.Application.Interface;
+using RestauranteCodenation.Application.ViewModel;
 
 namespace RestauranteCodenation.Api.Controllers
 {
@@ -14,48 +9,48 @@ namespace RestauranteCodenation.Api.Controllers
     [ApiController]
     public class AgendaCardapioController : ControllerBase
     {
-        private readonly IAgendaCardapioRepositorio _repo;
-        public AgendaCardapioController(IAgendaCardapioRepositorio repo)
+        private readonly IAgendaCardapioAplicacao _app;
+        public AgendaCardapioController(IAgendaCardapioAplicacao app)
         {
-            _repo = repo;
+            _app = app;
         }
 
         // GET: api/AgendaCardapio
         [HttpGet]
-        public IEnumerable<AgendaCardapio> Get()
+        public IEnumerable<AgendaCardapioViewModel> Get()
         {
-            return _repo.SelecionarCompleto();
+            return _app.SelecionarCompleto();
         }
 
         // GET: api/AgendaCardapio/5
         [HttpGet("{id}")]
-        public AgendaCardapio Get(int id)
+        public AgendaCardapioViewModel Get(int id)
         {
-            return _repo.SelecionanrPorId(id);
+            return _app.SelecionanrPorId(id);
         }
 
         // POST: api/AgendaCardapio
         [HttpPost]
-        public AgendaCardapio Post([FromBody] AgendaCardapio agendaCardapio)
+        public AgendaCardapioViewModel Post([FromBody] AgendaCardapioViewModel agendaCardapio)
         {
-            _repo.Incluir(agendaCardapio);
+            _app.Incluir(agendaCardapio);
             return agendaCardapio;
         }
 
         // PUT: api/AgendaCardapio/5
         [HttpPut("{id}")]
-        public AgendaCardapio Put([FromBody] AgendaCardapio agendaCardapio)
+        public AgendaCardapioViewModel Put([FromBody] AgendaCardapioViewModel agendaCardapio)
         {
-            _repo.Alterar(agendaCardapio);
+            _app.Alterar(agendaCardapio);
             return agendaCardapio;
         }
 
         // DELETE: api/AgendaCardapio/5
         [HttpDelete("{id}")]
-        public IEnumerable<AgendaCardapio> Delete(int id)
+        public IEnumerable<AgendaCardapioViewModel> Delete(int id)
         {
-            _repo.Excluir(id);
-            return _repo.SelecionarTodos();
+            _app.Excluir(id);
+            return _app.SelecionarTodos();
         }
     }
 }

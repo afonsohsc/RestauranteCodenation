@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using RestauranteCodenation.Data.Repositorio;
-using RestauranteCodenation.Domain.Modelo;
-using RestauranteCodenation.Domain.Repositorio;
+using RestauranteCodenation.Application.Interface;
+using RestauranteCodenation.Application.ViewModel;
 
 namespace RestauranteCodenation.Api.Controllers
 {
@@ -14,48 +9,48 @@ namespace RestauranteCodenation.Api.Controllers
     [ApiController]
     public class CardapioController : ControllerBase
     {
-        private readonly ICardapioRepositorio _repo;
-        public CardapioController(ICardapioRepositorio repo)
+        private readonly ICardapioAplicacao _app;
+        public CardapioController(ICardapioAplicacao app)
         {
-            _repo = repo;
+            _app = app;
         }
 
         // GET: api/Cardapio
         [HttpGet]
-        public IEnumerable<Cardapio> Get()
+        public IEnumerable<CardapioViewModel> Get()
         {
-            return _repo.SelecionarTodos();
+            return _app.SelecionarTodos();
         }
 
         // GET: api/Cardapio/5
         [HttpGet("{id}")]
-        public Cardapio Get(int id)
+        public CardapioViewModel Get(int id)
         {
-            return _repo.SelecionanrPorId(id);
+            return _app.SelecionanrPorId(id);
         }
 
         // POST: api/Cardapio
         [HttpPost]
-        public Cardapio Post([FromBody] Cardapio cardapio)
+        public CardapioViewModel Post([FromBody] CardapioViewModel cardapio)
         {
-            _repo.Incluir(cardapio);
+            _app.Incluir(cardapio);
             return cardapio;
         }
 
         // PUT: api/Cardapio/5
         [HttpPut]
-        public Cardapio Put([FromBody] Cardapio cardapio)
+        public CardapioViewModel Put([FromBody] CardapioViewModel cardapio)
         {
-            _repo.Alterar(cardapio);
+            _app.Alterar(cardapio);
             return cardapio;
         }
 
         // DELETE: api/Cardapio/5
         [HttpDelete("{id}")]
-        public IEnumerable<Cardapio> Delete(int id)
+        public IEnumerable<CardapioViewModel> Delete(int id)
         {
-            _repo.Excluir(id);
-            return _repo.SelecionarTodos();
+            _app.Excluir(id);
+            return _app.SelecionarTodos();
         }
     }
 }

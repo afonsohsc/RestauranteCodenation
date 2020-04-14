@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using RestauranteCodenation.Data.Repositorio;
-using RestauranteCodenation.Domain.Modelo;
-using RestauranteCodenation.Domain.Repositorio;
+using RestauranteCodenation.Application.Interface;
+using RestauranteCodenation.Application.ViewModel;
 
 namespace RestauranteCodenation.Api.Controllers
 {
@@ -14,29 +9,29 @@ namespace RestauranteCodenation.Api.Controllers
     [ApiController]
     public class PratoController : ControllerBase
     {
-        public readonly IPratoRepositorio _repo;
-        public PratoController(IPratoRepositorio repo)
+        public readonly IPratoAplicacao _repo;
+        public PratoController(IPratoAplicacao repo)
         {
             _repo = repo;
         }
 
         // GET: api/Prato
         [HttpGet]
-        public IEnumerable<Prato> Get()
+        public IEnumerable<PratoViewModel> Get()
         {
             return _repo.SelecionarCompleto();
         }
 
         // GET: api/Prato/5
         [HttpGet("{id}")]
-        public Prato Get(int id)
+        public PratoViewModel Get(int id)
         {
             return _repo.SelecionanrPorId(id);
         }
 
         // POST: api/Prato
         [HttpPost]
-        public Prato Post([FromBody] Prato prato)
+        public PratoViewModel Post([FromBody] PratoViewModel prato)
         {
             _repo.Incluir(prato);
             return prato;
@@ -44,7 +39,7 @@ namespace RestauranteCodenation.Api.Controllers
 
         // PUT: api/Prato/5
         [HttpPut]
-        public Prato Put([FromBody] Prato prato)
+        public PratoViewModel Put([FromBody] PratoViewModel prato)
         {
             _repo.Alterar(prato);
             return prato;
@@ -52,7 +47,7 @@ namespace RestauranteCodenation.Api.Controllers
 
         // DELETE: api/Prato/5
         [HttpDelete("{id}")]
-        public IEnumerable<Prato> Delete(int id)
+        public IEnumerable<PratoViewModel> Delete(int id)
         {
             _repo.Excluir(id);
             return _repo.SelecionarTodos();
