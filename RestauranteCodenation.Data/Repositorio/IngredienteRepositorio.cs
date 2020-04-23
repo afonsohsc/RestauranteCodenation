@@ -9,6 +9,11 @@ namespace RestauranteCodenation.Data.Repositorio
 {
     public class IngredienteRepositorio : RepositorioBase<Ingrediente>, IIngredienteRepositorio
     {
+        public IngredienteRepositorio(Contexto contexto) : base(contexto)
+        {
+
+        }
+
         public void Alterar(int id, Ingrediente ingrediente)
         {
             var find = SelecionanrPorId(id);

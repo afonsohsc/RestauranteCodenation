@@ -8,5 +8,9 @@ namespace RestauranteCodenation.Data.Repositorio
 {
     public class TipoPratoRepositorio : RepositorioBase<TipoPrato>, ITipoPratoRepositorio
     {
+        public TipoPratoRepositorio(Contexto contexto) : base(contexto)
+        {
+
+        }
     }
 }

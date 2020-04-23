@@ -10,6 +10,11 @@ namespace RestauranteCodenation.Data.Repositorio
 {
     public class PratoRepositorio : RepositorioBase<Prato>, IPratoRepositorio
     {
+        public PratoRepositorio(Contexto contexto) : base(contexto)
+        {
+
+        }
+
         public IEnumerable<Prato> SelecionarCompleto()
         {
             return _contexto.Prato
